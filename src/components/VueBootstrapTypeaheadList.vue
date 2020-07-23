@@ -12,6 +12,8 @@
         <slot name="suggestion" v-bind="{ data, htmlText }" />
       </template>
     </vue-bootstrap-typeahead-list-item>
+
+    <span v-if="matchedItems.length === 0" :class="textClasses">{{highlight('No results found')}}</span>
   </div>
 </template>
 
@@ -94,6 +96,13 @@ export default {
           if (aIndex > bIndex) { return 1 }
           return 0
         }).slice(0, this.maxMatches)
+    },
+    textClasses() {
+      let classes = ''
+      classes += this.active ? 'active' : ''
+      classes += this.backgroundVariant ? ` bg-${this.backgroundVariant}` : ''
+      classes += this.textVariant ? ` text-${this.textVariant}` : ''
+      return `vbst-item list-group-item ${classes}`
     }
   },
 

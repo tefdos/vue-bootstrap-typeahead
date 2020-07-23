@@ -27,7 +27,7 @@
 		<vue-bootstrap-typeahead-list
 			class="vbt-autcomplete-list"
 			ref="list"
-			v-show="isFocused && data.length > 0"
+			v-show="isFocused && shouldShow"
 			:query="inputValue"
 			:data="formattedData"
 			:background-variant="backgroundVariant"
@@ -108,6 +108,11 @@ export default {
 			type: Boolean,
 			required: false,
 			default: false
+		},
+		showIfEmpty: {
+			type: null|Boolean,
+			required: false,
+			default: null
 		}
   },
   
@@ -135,6 +140,10 @@ export default {
 					text: this.serializer(d)
 				};
 			});
+		},
+		shouldShow()
+		{
+			return this.showIfEmpty === null ? this.data.length > 0 : this.showIfEmpty;
 		}
 	},
 
