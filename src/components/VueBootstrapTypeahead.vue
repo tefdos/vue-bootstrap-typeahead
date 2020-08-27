@@ -113,6 +113,11 @@ export default {
 			type: null|Boolean,
 			required: false,
 			default: null
+		},
+		initialInput: {
+			type: String,
+			required: false,
+			default: ""
 		}
   },
   
@@ -152,6 +157,11 @@ export default {
 			if(newValue !== oldValue) {
 				this.$refs.input.blur();
 				this.isFocused = false;
+			}
+		},
+		initialInput(newValue, oldValue) {
+			if(newValue !== oldValue) {
+				this.inputValue = newValue;
 			}
 		}
 	},
@@ -217,7 +227,7 @@ export default {
 	data() {
 		return {
 			isFocused: false,
-			inputValue: ""
+			inputValue: this.initialInput || ""
 		};
 	},
 
