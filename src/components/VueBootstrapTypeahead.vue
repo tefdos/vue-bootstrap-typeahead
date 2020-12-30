@@ -13,7 +13,7 @@
 				:placeholder="placeholder"
 				:aria-label="placeholder"
 				:value="inputValue"
-				@focus="isFocused = true"
+				@focus="handleFocus"
 				@blur="handleBlur"
 				@input="handleInput($event.target.value)"
 				autocomplete="off"
@@ -182,6 +182,11 @@ export default {
 			}
 		},
 
+		handleFocus() {
+			this.isFocused = true;
+			if(this.multiple && this.selectedItems) this.selectedItems = [];
+		},
+
 		handleHit(evt) {
       
 			if(this.multiple) {
@@ -208,6 +213,8 @@ export default {
 
 		handleBlur(evt) {
 			const tgt = evt.relatedTarget;
+			if(this.multiple && this.selectedItems)
+				this.selectedItems = [];
 			if (tgt && tgt.classList.contains("vbst-item")) {
 				return;
 			}
